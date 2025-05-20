@@ -2,8 +2,10 @@ package com.webbfontaine.service;
 
 import com.webbfontaine.model.Employee;
 import com.webbfontaine.repository.EmployeeRepository;
+import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -11,15 +13,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@AllArgsConstructor
 @Service
 public class EmployeeReportsServiceImpl implements EmployeeService {
 
+
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeReportsServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+
 
     public byte[]exportEmployeesReport() throws JRException{
 

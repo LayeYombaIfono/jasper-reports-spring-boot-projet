@@ -1,0 +1,32 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="insert-initial-employees" author="laye">
+
+        <insert tableName="tableEmployee">
+            <column name="first_name" value="Alice"/>
+            <column name="last_name" value="Dupont"/>
+            <column name="email" value="alice@example.com"/>
+            <column name="department" value="RH"/>
+            <column name="position" value="Gestionnaire"/>
+            <column name="phone" value="0123456789"/>
+            <column name="address" value="Paris"/>
+            <column name="salary" valueNumeric="3200"/>
+        </insert>
+
+        <insert tableName="tableEmployee">
+            <column name="first_name" value="Bob"/>
+            <column name="last_name" value="Martin"/>
+            <column name="email" value="bob@example.com"/>
+            <column name="department" value="IT"/>
+            <column name="position" value="Développeur"/>
+            <column name="phone" value="0987654321"/>
+            <column name="address" value="Lyon"/>
+            <column name="salary" valueNumeric="4000"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
