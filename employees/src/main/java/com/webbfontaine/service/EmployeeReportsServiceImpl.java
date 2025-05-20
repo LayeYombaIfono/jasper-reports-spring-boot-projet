@@ -1,24 +1,31 @@
 package com.webbfontaine.service;
 
 import com.webbfontaine.model.Employee;
+import com.webbfontaine.repository.EmployeeRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class EmployeeReportsService {
+public class EmployeeReportsServiceImpl implements EmployeeService {
+
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeReportsServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     public byte[]exportEmployeesReport() throws JRException{
-        List<Employee> employees = List.of(
-                new Employee("Laye Yomba", "IFONO", "layeyomba@example.com", "IT", "Développeur", "621952082", "Guinée", 4000.0),
-                new Employee("Jean", "IFONO", "jean@example.com", "IT", "Développeur", "0987654321", "Guinée", 4000.0),
-                new Employee("Marie", "Kamano", "marie@example.com", "Finance", "Analyste", "0612345678", "Guinée", 3700.0),
-                new Employee("Christine", "Mansaré", "christine@example.com", "Marketing", "Communication", "0789456123", "Guinée", 3500.0)
-        );
+
+        List<Employee> employees = employeeRepository.findAll();
+
+
 
         InputStream inputStream = getClass().getResourceAsStream("/reports/employees_list.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
@@ -32,5 +39,10 @@ public class EmployeeReportsService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
         return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
+
+    @Override
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 }
